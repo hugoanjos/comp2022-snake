@@ -6,8 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Random;
 
 import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import java.io.File;
 
@@ -19,6 +21,7 @@ public class Board extends JPanel implements ActionListener {
     
     private boolean isPlaying = true;
     private String direcao = "parado";
+    private boolean gameOver = false;
 
     private Font font;
        
@@ -61,6 +64,8 @@ public class Board extends JPanel implements ActionListener {
                     head = head.getProximo();
                 }
             }
+        } else {
+            gameOver = true;
         }
 
         Toolkit.getDefaultToolkit().sync();
@@ -89,7 +94,12 @@ public class Board extends JPanel implements ActionListener {
     
     public void actionPerformed(ActionEvent e) {        
         repaint();
-        mover();        
+        if(!gameOver){
+            mover();
+        } else {
+            JOptionPane.showMessageDialog (null, "Game over!\n Your score was: " + score.getScore());
+            System.exit(0);
+        }
     }
     
     public void mover() {
@@ -97,21 +107,25 @@ public class Board extends JPanel implements ActionListener {
             case "esquerda":
                 fila.getHead().setX(-1);
                 fila.getHead().setY(0);
+                if (fila.getHead().getX() < 0) gameOver = true; 
                 break;
                 
             case "direita":
                 fila.getHead().setX(1);
                 fila.getHead().setY(0);
+                if (fila.getHead().getX() > (800 - fila.getHead().getWidth())) gameOver = true; 
                 break;
                 
             case "cima":
                 fila.getHead().setX(0);
                 fila.getHead().setY(-1);
+                if (fila.getHead().getY() < 0) gameOver = true; 
                 break;
                 
             case "baixo":
                 fila.getHead().setX(0);
                 fila.getHead().setY(1);
+                if (fila.getHead().getY() > (600 - fila.getHead().getHeight())) gameOver = true; 
                 break;
                 
             case "parado":

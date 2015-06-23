@@ -40,6 +40,14 @@ public class Snake extends JPanel
         index += 1;
     }
 
+    public int getWidth() {
+        return width;
+    }
+    
+    public int getHeight() {
+        return height;
+    }
+    
     public int getX() {
         return x;
     }
