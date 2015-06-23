@@ -11,7 +11,10 @@ import javax.swing.ImageIcon;
  */
 public class Snake extends JPanel
 {
-    private String head = "images/head.png";
+    private String headLeft = "images/headL.png";
+    private String headRight = "images/headR.png";
+    private String headUp = "images/headU.png";
+    private String headDown = "images/headD.png";
     private String body = "images/body.png";
     private int x;
     private int y;
@@ -20,13 +23,14 @@ public class Snake extends JPanel
     private Image image;
     private Snake proximo;
     private int index;
+    private String direcao = "parado";
     
     public Snake() {
         ImageIcon ii;
         if (index == 0) {
-            ii = new ImageIcon("images/head.png");//+this.getClass().getResource(head));
+            ii = new ImageIcon(this.getClass().getResource(headLeft));
         } else {
-            ii = new ImageIcon("images/body.png");//"+this.getClass().getResource(body));
+            ii = new ImageIcon(this.getClass().getResource(body));
         }
         image = ii.getImage();
         x = 400;
@@ -42,6 +46,10 @@ public class Snake extends JPanel
 
     public int getY() {
         return y;
+    }
+    
+    public String getDirecao() {
+        return direcao;
     }
 
     public int getIndex() {
@@ -68,4 +76,29 @@ public class Snake extends JPanel
         this.proximo = snake;
     }
     
+    public void setDirecao(String direcao) {
+        this.direcao = direcao;
+    }
+    
+    public void setImage(String direcao) {
+        ImageIcon ii;
+        switch (direcao) {
+            case "esquerda":
+                ii = new ImageIcon(this.getClass().getResource(headLeft));
+                break;
+            case "direita":
+                ii = new ImageIcon(this.getClass().getResource(headRight));
+                break;
+            case "cima":
+                ii = new ImageIcon(this.getClass().getResource(headUp));
+                break;
+            case "baixo":
+                ii = new ImageIcon(this.getClass().getResource(headDown));
+                break;
+            default:
+                ii = new ImageIcon(this.getClass().getResource(headLeft));
+                break;   
+        }
+        image = ii.getImage();
+    }
 }

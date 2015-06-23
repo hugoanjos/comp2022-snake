@@ -18,7 +18,7 @@ public class Board extends JPanel implements ActionListener {
     private Fila fila = new Fila();
     
     private boolean isPlaying = true;
-    private String direcao = "direita";
+    private String direcao = "parado";
 
     private Font font;
        
@@ -113,6 +113,11 @@ public class Board extends JPanel implements ActionListener {
                 fila.getHead().setX(0);
                 fila.getHead().setY(1);
                 break;
+                
+            case "parado":
+                fila.getHead().setX(0);
+                fila.getHead().setY(0);
+                break;
         }
     }
     
@@ -130,18 +135,22 @@ public class Board extends JPanel implements ActionListener {
                     
                 case KeyEvent.VK_LEFT:
                     direcao = "esquerda";
+                    fila.getHead().setImage(direcao);
                     break;
                     
                 case KeyEvent.VK_RIGHT:
                     direcao = "direita";
+                    fila.getHead().setImage(direcao);
                     break;
                     
                 case KeyEvent.VK_UP:
                     direcao = "cima";
+                    fila.getHead().setImage(direcao);
                     break;
                     
                 case KeyEvent.VK_DOWN:
                     direcao = "baixo";
+                    fila.getHead().setImage(direcao);
                     break;
             }
             
