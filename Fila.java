@@ -20,7 +20,7 @@ public class Fila
     
     public void inserir(Snake _snake) {
         Snake aux = inicio;
-        while (aux.getProximo() != inicio) {
+        while (aux.getProximo() != null) {
             aux = aux.getProximo();
         }
         aux.setProximo(_snake);

@@ -24,9 +24,9 @@ public class Snake extends JPanel
     public Snake() {
         ImageIcon ii;
         if (index == 0) {
-            ii = new ImageIcon("images/"+this.getClass().getResource(head));
+            ii = new ImageIcon("images/head.png");//+this.getClass().getResource(head));
         } else {
-            ii = new ImageIcon("images/"+this.getClass().getResource(body));
+            ii = new ImageIcon("images/body.png");//"+this.getClass().getResource(body));
         }
         image = ii.getImage();
         x = 400;
