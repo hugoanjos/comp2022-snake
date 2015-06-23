@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.params=
+comment0.target=Fila()
+comment1.params=
+comment1.target=Snake\ getHead()
+comment2.params=_snake
+comment2.target=void\ inserir(Snake)
+comment3.params=position
+comment3.target=Snake\ getSnake(int)
+comment4.params=
+comment4.target=int\ getSize()
+numComments=5

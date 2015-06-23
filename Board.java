@@ -15,8 +15,9 @@ public class Board extends JPanel implements ActionListener {
 
     private Timer timer;
     private Score score;
+    private Fila fila = new Fila();
     
-    private boolean isPlaying = false;
+    private boolean isPlaying = true;
 
     private Font font;
        
@@ -33,6 +34,12 @@ public class Board extends JPanel implements ActionListener {
         
         timer = new Timer(5, this);
         timer.start();
+        
+        Snake snake = fila.getHead();
+        while (snake.getProximo() != null) {
+            add(snake);
+            snake = snake.getProximo();
+        }
     }
 
 
@@ -41,7 +48,19 @@ public class Board extends JPanel implements ActionListener {
         
         score.paintComponent(g);
         
-        Graphics2D g2d = (Graphics2D)g;        
+        Graphics2D g2d = (Graphics2D)g;
+        
+        if (isPlaying) {
+            Snake head = fila.getHead();
+            if(head.getProximo() == null) {
+                g2d.drawImage(head.getImage(), head.getX(), head.getY(), this);
+            } else {
+                while (head.getProximo() != null) {
+                    add(head);
+                    head = head.getProximo();
+                }
+            }
+        }
 
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
@@ -81,7 +100,7 @@ public class Board extends JPanel implements ActionListener {
 
             switch (key){
                 case KeyEvent.VK_ENTER:
-                    score.addScore(100);
+                    fila.inserir(new Snake());
                     break;
                     
                 case KeyEvent.VK_LEFT:
