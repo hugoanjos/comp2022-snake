@@ -20,6 +20,7 @@ public class Board extends JPanel implements ActionListener {
     private Score score;
     private Fila fila = new Fila();
     private Food food;
+    private Snake head;
     
     private boolean isPlaying = true;
     private String direcao = "parado";
@@ -41,14 +42,12 @@ public class Board extends JPanel implements ActionListener {
         
         timer = new Timer(5, this);
         timer.start();
-        
-        Snake snake = fila.getHead();
-        while (snake.getProximo() != null) {
-            add(snake);
-            snake = snake.getProximo();
-        }
-        
+
         food = new Food();
+        
+        head = new Snake();
+        fila.inserir(head);
+        add(head);
     }
 
 
@@ -60,18 +59,19 @@ public class Board extends JPanel implements ActionListener {
         Graphics2D g2d = (Graphics2D)g;
         
         if (isPlaying) {
-            Snake head = fila.getHead();
-            if(head.getProximo() == null) {
-                g2d.drawImage(head.getImage(), head.getX(), head.getY(), this);
-            } else {
-                while (head.getProximo() != null) {
-                    add(head);
-                    head = head.getProximo();
-                }
-            }
-            fila.getHead().setHitbox(fila.getHead().getX(), fila.getHead().getY(), fila.getHead().getWidth(), fila.getHead().getHeight());
-            g2d.drawImage(food.getImage(), food.getX(), food.getY(), this);
-            colisao();
+           Snake aux = fila.getSnake();
+           while (aux != null) {
+               g2d.drawImage(aux.getImage(), aux.getX(), aux.getY(), this);
+               aux.setHitbox(aux.getX(), aux.getY(), aux.getWidth(), aux.getHeight());
+               aux = aux.getProximo();
+           }
+           g2d.drawImage(food.getImage(), food.getX(), food.getY(), this);
+           if (fila.getHead().getHitbox().intersects(food.getHitbox())) {
+               food.randomize();
+               score.addScore(10);
+               fila.setMax((fila.getMax())+1);
+           }     
+                      
         } else {
             gameOver = true;
         }
@@ -104,61 +104,54 @@ public class Board extends JPanel implements ActionListener {
         repaint();
         if(!gameOver){
             mover();
+            
         } else {
             JOptionPane.showMessageDialog (null, "Game over!\n Your score was: " + score.getScore());
             System.exit(0);
         }
     }
     
-    public void dificuldade() {
-        if ((score.getScore() % 50) == 0) {
-            movespeed += 1;
-        }
-    }
     
-    public void colisao() {        
-        if (fila.getHead().getHitbox().intersects(food.getHitbox())) {
-            food.randomize();
-            score.addScore(10);
-            dificuldade();
-        }
-    }
+  //  public void colisao() {        
+  //      if (fila.getHead().getHitbox().intersects(food.getHitbox())) {
+  //          food.randomize();
+  //          score.addScore(10);
+  //      } else {
+  //          fila.remover();
+  //      }
+  //  }
     
     public void mover() {
         switch (direcao) {
             case "esquerda":
-                fila.getHead().setX(-movespeed);
-                fila.getHead().setY(0);
-                //fila.getHead().setHitbox(fila.getHead().getX(), fila.getHead().getY(), fila.getHead().getWidth(), fila.getHead().getHeight());
+                head = new Snake(fila.getHead().getX()-33, fila.getHead().getY(), "esquerda");
+                fila.inserir(head);
+                if (fila.getSize() > fila.getMax()) fila.remover();
                 if (fila.getHead().getX() < 0) gameOver = true; 
                 break;
                 
             case "direita":
-                fila.getHead().setX(movespeed);
-                fila.getHead().setY(0);
-                //fila.getHead().setHitbox(fila.getHead().getX(), fila.getHead().getY(), fila.getHead().getWidth(), fila.getHead().getHeight());
+                head = new Snake(fila.getHead().getX()+33, fila.getHead().getY(), "direita");
+                fila.inserir(head);
+                if (fila.getSize() > fila.getMax()) fila.remover();
                 if (fila.getHead().getX() > (800 - fila.getHead().getWidth())) gameOver = true; 
                 break;
                 
             case "cima":
-                fila.getHead().setX(0);
-                fila.getHead().setY(-movespeed);
-                //fila.getHead().setHitbox(fila.getHead().getX(), fila.getHead().getY(), fila.getHead().getWidth(), fila.getHead().getHeight());
+                head = new Snake(fila.getHead().getX(), fila.getHead().getY()-33, "cima");
+                fila.inserir(head);
+                if (fila.getSize() > fila.getMax()) fila.remover();
                 if (fila.getHead().getY() < 0) gameOver = true; 
                 break;
                 
             case "baixo":
-                fila.getHead().setX(0);
-                fila.getHead().setY(movespeed);
-                //fila.getHead().setHitbox(fila.getHead().getX(), fila.getHead().getY(), fila.getHead().getWidth(), fila.getHead().getHeight());
+                head = new Snake(fila.getHead().getX(), fila.getHead().getY()+33, "baixo");
+                fila.inserir(head);
+                if (fila.getSize() > fila.getMax()) fila.remover();
                 if (fila.getHead().getY() > (600 - fila.getHead().getHeight())) gameOver = true;
                 break;
-                
-            case "parado":
-                fila.getHead().setX(0);
-                fila.getHead().setY(0);
-                break;
         }
+        
     }
     
     private class TAdapter extends KeyAdapter {
@@ -176,28 +169,24 @@ public class Board extends JPanel implements ActionListener {
                 case KeyEvent.VK_LEFT:
                     if (direcao != "direita") {
                         direcao = "esquerda";
-                        fila.getHead().setImage(direcao);
                     }
                     break;
                     
                 case KeyEvent.VK_RIGHT:
                     if (direcao != "esquerda") {
                         direcao = "direita";
-                        fila.getHead().setImage(direcao);
                     }
                     break;
                     
                 case KeyEvent.VK_UP:
                     if (direcao != "baixo") {
                         direcao = "cima";
-                        fila.getHead().setImage(direcao);
                     }
                     break;
                     
                 case KeyEvent.VK_DOWN:
                     if (direcao != "cima") {    
                         direcao = "baixo";
-                        fila.getHead().setImage(direcao);
                     }
                     break;
             }
