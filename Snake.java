@@ -35,8 +35,8 @@ public class Snake extends JPanel
         image = ii.getImage();
         x = 400;
         y = 300;
-        width = image.getWidth(null);
-        height = image.getHeight(null);
+        //width = image.getWidth(null);
+        //height = image.getHeight(null);
         index += 1;
     }
 
@@ -93,18 +93,28 @@ public class Snake extends JPanel
         switch (direcao) {
             case "esquerda":
                 ii = new ImageIcon(this.getClass().getResource(headLeft));
+                width = image.getWidth(null);
+                height = image.getHeight(null);
                 break;
             case "direita":
                 ii = new ImageIcon(this.getClass().getResource(headRight));
+                width = image.getWidth(null);
+                height = image.getHeight(null);
                 break;
             case "cima":
                 ii = new ImageIcon(this.getClass().getResource(headUp));
+                width = image.getWidth(null);
+                height = image.getHeight(null);
                 break;
             case "baixo":
                 ii = new ImageIcon(this.getClass().getResource(headDown));
+                width = image.getWidth(null);
+                height = image.getHeight(null);
                 break;
             default:
                 ii = new ImageIcon(this.getClass().getResource(headLeft));
+                width = image.getWidth(null);
+                height = image.getHeight(null);
                 break;   
         }
         image = ii.getImage();

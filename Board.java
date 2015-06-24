@@ -125,7 +125,7 @@ public class Board extends JPanel implements ActionListener {
             case "baixo":
                 fila.getHead().setX(0);
                 fila.getHead().setY(1);
-                if (fila.getHead().getY() > (600 - fila.getHead().getHeight())) gameOver = true; 
+                if ((fila.getHead().getY() + fila.getHead().getHeight()) > (600 - fila.getHead().getHeight())) gameOver = true; 
                 break;
                 
             case "parado":
@@ -144,27 +144,35 @@ public class Board extends JPanel implements ActionListener {
 
             switch (key){
                 case KeyEvent.VK_ENTER:
-                    fila.inserir(new Snake());
+                    //fila.inserir(new Snake());
                     break;
                     
                 case KeyEvent.VK_LEFT:
-                    direcao = "esquerda";
-                    fila.getHead().setImage(direcao);
+                    if (direcao != "direita") {
+                        direcao = "esquerda";
+                        fila.getHead().setImage(direcao);
+                    }
                     break;
                     
                 case KeyEvent.VK_RIGHT:
-                    direcao = "direita";
-                    fila.getHead().setImage(direcao);
+                    if (direcao != "esquerda") {
+                        direcao = "direita";
+                        fila.getHead().setImage(direcao);
+                    }
                     break;
                     
                 case KeyEvent.VK_UP:
-                    direcao = "cima";
-                    fila.getHead().setImage(direcao);
+                    if (direcao != "baixo") {
+                        direcao = "cima";
+                        fila.getHead().setImage(direcao);
+                    }
                     break;
                     
                 case KeyEvent.VK_DOWN:
-                    direcao = "baixo";
-                    fila.getHead().setImage(direcao);
+                    if (direcao != "cima") {    
+                        direcao = "baixo";
+                        fila.getHead().setImage(direcao);
+                    }
                     break;
             }
             
