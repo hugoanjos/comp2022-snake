@@ -18,6 +18,7 @@ public class Board extends JPanel implements ActionListener {
     private Timer timer;
     private Score score;
     private Fila fila = new Fila();
+    private Food food;
     
     private boolean isPlaying = true;
     private String direcao = "parado";
@@ -44,6 +45,8 @@ public class Board extends JPanel implements ActionListener {
             add(snake);
             snake = snake.getProximo();
         }
+        
+        food = new Food();
     }
 
 
@@ -64,6 +67,7 @@ public class Board extends JPanel implements ActionListener {
                     head = head.getProximo();
                 }
             }
+            g2d.drawImage(food.getImage(), food.getX(), food.getY(), this);
         } else {
             gameOver = true;
         }
@@ -108,24 +112,40 @@ public class Board extends JPanel implements ActionListener {
                 fila.getHead().setX(-1);
                 fila.getHead().setY(0);
                 if (fila.getHead().getX() < 0) gameOver = true; 
+                if (fila.getHead().getX() == food.getX() && fila.getHead().getY() == food.getY()) {
+                    food.randomize();
+                    score.addScore(10);
+                }
                 break;
                 
             case "direita":
                 fila.getHead().setX(1);
                 fila.getHead().setY(0);
                 if (fila.getHead().getX() > (800 - fila.getHead().getWidth())) gameOver = true; 
+                if (fila.getHead().getX() == food.getX() && fila.getHead().getY() == food.getY()) {
+                    food.randomize();
+                    score.addScore(10);
+                }
                 break;
                 
             case "cima":
                 fila.getHead().setX(0);
                 fila.getHead().setY(-1);
                 if (fila.getHead().getY() < 0) gameOver = true; 
+                if (fila.getHead().getX() == food.getX() && fila.getHead().getY() == food.getY()) {
+                    food.randomize();
+                    score.addScore(10);
+                }
                 break;
                 
             case "baixo":
                 fila.getHead().setX(0);
                 fila.getHead().setY(1);
                 if ((fila.getHead().getY() + fila.getHead().getHeight()) > (600 - fila.getHead().getHeight())) gameOver = true; 
+                if (fila.getHead().getX() == food.getX() && fila.getHead().getY() == food.getY()) {
+                    food.randomize();
+                    score.addScore(10);
+                }
                 break;
                 
             case "parado":
