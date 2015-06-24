@@ -100,36 +100,26 @@ public class Snake extends JPanel
         switch (direcao) {
             case "esquerda":
                 ii = new ImageIcon(this.getClass().getResource(headLeft));
-                width = image.getWidth(null);
-                height = image.getHeight(null);
-                hitbox = new Rectangle(x, y, width, height);
                 break;
             case "direita":
                 ii = new ImageIcon(this.getClass().getResource(headRight));
-                width = image.getWidth(null);
-                height = image.getHeight(null);
-                hitbox = new Rectangle(x, y, width, height);
                 break;
             case "cima":
                 ii = new ImageIcon(this.getClass().getResource(headUp));
-                width = image.getWidth(null);
-                height = image.getHeight(null);
-                hitbox = new Rectangle(x, y, width, height);
                 break;
             case "baixo":
                 ii = new ImageIcon(this.getClass().getResource(headDown));
-                width = image.getWidth(null);
-                height = image.getHeight(null);
-                hitbox = new Rectangle(x, y, width, height);
                 break;
             default:
                 ii = new ImageIcon(this.getClass().getResource(headLeft));
-                width = image.getWidth(null);
-                height = image.getHeight(null);
-                hitbox = new Rectangle(x, y, width, height);
                 break;   
         }
         image = ii.getImage();
+        width = image.getWidth(null);
+        height = image.getHeight(null);
     }
     
+    public void setHitbox(int p1, int p2, int largura, int altura) {
+        hitbox = new Rectangle(p1, p2, largura, altura);
+    }
 }

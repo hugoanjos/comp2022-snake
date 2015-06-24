@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Random;
+import java.awt.Rectangle;
 
 import javax.swing.JPanel;
 import javax.swing.JOptionPane;
@@ -23,6 +24,7 @@ public class Board extends JPanel implements ActionListener {
     private boolean isPlaying = true;
     private String direcao = "parado";
     private boolean gameOver = false;
+    private int movespeed = 1;
 
     private Font font;
        
@@ -67,7 +69,9 @@ public class Board extends JPanel implements ActionListener {
                     head = head.getProximo();
                 }
             }
+            fila.getHead().setHitbox(fila.getHead().getX(), fila.getHead().getY(), fila.getHead().getWidth(), fila.getHead().getHeight());
             g2d.drawImage(food.getImage(), food.getX(), food.getY(), this);
+            colisao();
         } else {
             gameOver = true;
         }
@@ -106,46 +110,48 @@ public class Board extends JPanel implements ActionListener {
         }
     }
     
+    public void dificuldade() {
+        if ((score.getScore() % 50) == 0) {
+            movespeed += 1;
+        }
+    }
+    
+    public void colisao() {        
+        if (fila.getHead().getHitbox().intersects(food.getHitbox())) {
+            food.randomize();
+            score.addScore(10);
+            dificuldade();
+        }
+    }
+    
     public void mover() {
         switch (direcao) {
             case "esquerda":
-                fila.getHead().setX(-1);
+                fila.getHead().setX(-movespeed);
                 fila.getHead().setY(0);
+                //fila.getHead().setHitbox(fila.getHead().getX(), fila.getHead().getY(), fila.getHead().getWidth(), fila.getHead().getHeight());
                 if (fila.getHead().getX() < 0) gameOver = true; 
-                if (fila.getHead().getHitbox().intersects(food.getHitbox())) {
-                    food.randomize();
-                    score.addScore(10);
-                }
                 break;
                 
             case "direita":
-                fila.getHead().setX(1);
+                fila.getHead().setX(movespeed);
                 fila.getHead().setY(0);
+                //fila.getHead().setHitbox(fila.getHead().getX(), fila.getHead().getY(), fila.getHead().getWidth(), fila.getHead().getHeight());
                 if (fila.getHead().getX() > (800 - fila.getHead().getWidth())) gameOver = true; 
-                if (fila.getHead().getHitbox().intersects(food.getHitbox())) {
-                    food.randomize();
-                    score.addScore(10);
-                }
                 break;
                 
             case "cima":
                 fila.getHead().setX(0);
-                fila.getHead().setY(-1);
+                fila.getHead().setY(-movespeed);
+                //fila.getHead().setHitbox(fila.getHead().getX(), fila.getHead().getY(), fila.getHead().getWidth(), fila.getHead().getHeight());
                 if (fila.getHead().getY() < 0) gameOver = true; 
-                if (fila.getHead().getHitbox().intersects(food.getHitbox())) {
-                    food.randomize();
-                    score.addScore(10);
-                }
                 break;
                 
             case "baixo":
                 fila.getHead().setX(0);
-                fila.getHead().setY(1);
-                if ((fila.getHead().getY() + fila.getHead().getHeight()) > (600 - fila.getHead().getHeight())) gameOver = true; 
-                if (fila.getHead().getHitbox().intersects(food.getHitbox())) {
-                    food.randomize();
-                    score.addScore(10);
-                }
+                fila.getHead().setY(movespeed);
+                //fila.getHead().setHitbox(fila.getHead().getX(), fila.getHead().getY(), fila.getHead().getWidth(), fila.getHead().getHeight());
+                if (fila.getHead().getY() > (600 - fila.getHead().getHeight())) gameOver = true;
                 break;
                 
             case "parado":
@@ -195,7 +201,6 @@ public class Board extends JPanel implements ActionListener {
                     }
                     break;
             }
-            
         }
     }
     

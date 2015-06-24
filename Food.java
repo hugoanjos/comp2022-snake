@@ -39,6 +39,14 @@ public class Food
         return x;
     }
     
+    public int getWidth() {
+        return width;
+    }
+    
+    public int getHeight() {
+        return height;
+    }
+    
     public int getY() {
         return y;
     }    
