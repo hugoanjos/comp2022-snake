@@ -112,7 +112,7 @@ public class Board extends JPanel implements ActionListener {
                 fila.getHead().setX(-1);
                 fila.getHead().setY(0);
                 if (fila.getHead().getX() < 0) gameOver = true; 
-                if (fila.getHead().getX() == food.getX() && fila.getHead().getY() == food.getY()) {
+                if (fila.getHead().getHitbox().intersects(food.getHitbox())) {
                     food.randomize();
                     score.addScore(10);
                 }
@@ -122,7 +122,7 @@ public class Board extends JPanel implements ActionListener {
                 fila.getHead().setX(1);
                 fila.getHead().setY(0);
                 if (fila.getHead().getX() > (800 - fila.getHead().getWidth())) gameOver = true; 
-                if (fila.getHead().getX() == food.getX() && fila.getHead().getY() == food.getY()) {
+                if (fila.getHead().getHitbox().intersects(food.getHitbox())) {
                     food.randomize();
                     score.addScore(10);
                 }
@@ -132,7 +132,7 @@ public class Board extends JPanel implements ActionListener {
                 fila.getHead().setX(0);
                 fila.getHead().setY(-1);
                 if (fila.getHead().getY() < 0) gameOver = true; 
-                if (fila.getHead().getX() == food.getX() && fila.getHead().getY() == food.getY()) {
+                if (fila.getHead().getHitbox().intersects(food.getHitbox())) {
                     food.randomize();
                     score.addScore(10);
                 }
@@ -142,7 +142,7 @@ public class Board extends JPanel implements ActionListener {
                 fila.getHead().setX(0);
                 fila.getHead().setY(1);
                 if ((fila.getHead().getY() + fila.getHead().getHeight()) > (600 - fila.getHead().getHeight())) gameOver = true; 
-                if (fila.getHead().getX() == food.getX() && fila.getHead().getY() == food.getY()) {
+                if (fila.getHead().getHitbox().intersects(food.getHitbox())) {
                     food.randomize();
                     score.addScore(10);
                 }

@@ -3,6 +3,8 @@ import java.awt.event.KeyEvent;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.ImageIcon;
+import java.awt.Rectangle;
+
 /**
  * Write a description of class Snake here.
  * 
@@ -24,6 +26,7 @@ public class Snake extends JPanel
     private Snake proximo;
     private int index;
     private String direcao = "parado";
+    private Rectangle hitbox;
     
     public Snake() {
         ImageIcon ii;
@@ -72,6 +75,10 @@ public class Snake extends JPanel
         return this.proximo;
     }
     
+    public Rectangle getHitbox() {
+        return hitbox;
+    }
+    
     public void setX(int x) {
         this.x += x;
     }
@@ -95,28 +102,34 @@ public class Snake extends JPanel
                 ii = new ImageIcon(this.getClass().getResource(headLeft));
                 width = image.getWidth(null);
                 height = image.getHeight(null);
+                hitbox = new Rectangle(x, y, width, height);
                 break;
             case "direita":
                 ii = new ImageIcon(this.getClass().getResource(headRight));
                 width = image.getWidth(null);
                 height = image.getHeight(null);
+                hitbox = new Rectangle(x, y, width, height);
                 break;
             case "cima":
                 ii = new ImageIcon(this.getClass().getResource(headUp));
                 width = image.getWidth(null);
                 height = image.getHeight(null);
+                hitbox = new Rectangle(x, y, width, height);
                 break;
             case "baixo":
                 ii = new ImageIcon(this.getClass().getResource(headDown));
                 width = image.getWidth(null);
                 height = image.getHeight(null);
+                hitbox = new Rectangle(x, y, width, height);
                 break;
             default:
                 ii = new ImageIcon(this.getClass().getResource(headLeft));
                 width = image.getWidth(null);
                 height = image.getHeight(null);
+                hitbox = new Rectangle(x, y, width, height);
                 break;   
         }
         image = ii.getImage();
     }
+    
 }

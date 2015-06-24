@@ -9,4 +9,6 @@ comment3.params=
 comment3.target=int\ getY()
 comment4.params=
 comment4.target=java.awt.Image\ getImage()
-numComments=5
+comment5.params=
+comment5.target=java.awt.Rectangle\ getHitbox()
+numComments=6
