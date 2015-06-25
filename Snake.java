@@ -110,5 +110,8 @@ public class Snake extends JPanel
         ImageIcon ii;
         ii = new ImageIcon(this.getClass().getResource(body));
         image = ii.getImage();
+        width = image.getWidth(null);
+        height = image.getHeight(null);
+        setHitbox(x, y, width, height);
     }
 }

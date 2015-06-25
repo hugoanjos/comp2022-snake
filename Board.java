@@ -40,7 +40,7 @@ public class Board extends JPanel implements ActionListener {
         score = new Score();
         add(score);       
         
-        timer = new Timer(100, this);
+        timer = new Timer(300, this);
         timer.start();
 
         food = new Food();
@@ -67,6 +67,11 @@ public class Board extends JPanel implements ActionListener {
            fila.getHead().setHitbox(fila.getHead().getX(), fila.getHead().getY(), fila.getHead().getWidth(), fila.getHead().getHeight());
            g2d.drawImage(food.getImage(), food.getX(), food.getY(), this);
            colisao();
+           for (int i = 4; i < fila.getSize(); i++) {
+                if (fila.getHead().getHitbox().intersects(fila.getSnake(i).getHitbox())) {
+                    gameOver = true;
+                }
+           }
                       
         } else {
             gameOver = true;
@@ -83,12 +88,6 @@ public class Board extends JPanel implements ActionListener {
             score.addScore(10);
             fila.setMax((fila.getMax())+1);
         }
-        
-        //for (int i = 0; i < fila.getSize(); i++) {
-        //    if (fila.getHead().getHitbox().intersects(fila.getSnake(i).getHitbox())) {
-        //        gameOver = true;
-        //    }
-        //}
     }
     
     public void paintIntro(Graphics g) {
@@ -132,22 +131,22 @@ public class Board extends JPanel implements ActionListener {
                 
             case "direita":
                 head = new Snake(fila.getHead().getX()+33, fila.getHead().getY(), "direita");
-                fila.inserir(head);
                 fila.getHead().setImageBody();
+                fila.inserir(head);        
                 if (fila.getHead().getX() > (800 - fila.getHead().getWidth())) gameOver = true; 
                 break;
                 
             case "cima":
-                head = new Snake(fila.getHead().getX(), fila.getHead().getY()-33, "cima");
-                fila.inserir(head);
+                head = new Snake(fila.getHead().getX(), fila.getHead().getY()-40, "cima");
                 fila.getHead().setImageBody();
+                fila.inserir(head);        
                 if (fila.getHead().getY() < 0) gameOver = true; 
                 break;
                 
             case "baixo":
-                head = new Snake(fila.getHead().getX(), fila.getHead().getY()+33, "baixo");
-                fila.inserir(head);
+                head = new Snake(fila.getHead().getX(), fila.getHead().getY()+40, "baixo");
                 fila.getHead().setImageBody();
+                fila.inserir(head);        
                 if (fila.getHead().getY() > (600 - fila.getHead().getHeight())) gameOver = true;
                 break;
         }
