@@ -25,7 +25,6 @@ public class Board extends JPanel implements ActionListener {
     private boolean isPlaying = true;
     private String direcao = "parado";
     private boolean gameOver = false;
-    private int movespeed = 1;
 
     private Font font;
        
@@ -40,7 +39,7 @@ public class Board extends JPanel implements ActionListener {
         score = new Score();
         add(score);       
         
-        timer = new Timer(300, this);
+        timer = new Timer(200, this);
         timer.start();
 
         food = new Food();
@@ -144,7 +143,7 @@ public class Board extends JPanel implements ActionListener {
                 break;
                 
             case "baixo":
-                head = new Snake(fila.getHead().getX(), fila.getHead().getY()+35, "baixo");
+                head = new Snake(fila.getHead().getX(), fila.getHead().getY()+45, "baixo");
                 fila.getHead().setImageBody();
                 fila.inserir(head);        
                 if (fila.getHead().getY() > (600 - fila.getHead().getHeight())) gameOver = true;
