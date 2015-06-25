@@ -123,28 +123,28 @@ public class Board extends JPanel implements ActionListener {
     public void mover() {
         switch (direcao) {
             case "esquerda":
-                head = new Snake(fila.getHead().getX()-33, fila.getHead().getY(), "esquerda");
+                head = new Snake(fila.getHead().getX()-55, fila.getHead().getY(), "esquerda");
                 fila.getHead().setImageBody();
                 fila.inserir(head);             
                 if (fila.getHead().getX() < 0) gameOver = true; 
                 break;
                 
             case "direita":
-                head = new Snake(fila.getHead().getX()+33, fila.getHead().getY(), "direita");
+                head = new Snake(fila.getHead().getX()+45, fila.getHead().getY(), "direita");
                 fila.getHead().setImageBody();
                 fila.inserir(head);        
                 if (fila.getHead().getX() > (800 - fila.getHead().getWidth())) gameOver = true; 
                 break;
                 
             case "cima":
-                head = new Snake(fila.getHead().getX(), fila.getHead().getY()-40, "cima");
+                head = new Snake(fila.getHead().getX(), fila.getHead().getY()-55, "cima");
                 fila.getHead().setImageBody();
                 fila.inserir(head);        
                 if (fila.getHead().getY() < 0) gameOver = true; 
                 break;
                 
             case "baixo":
-                head = new Snake(fila.getHead().getX(), fila.getHead().getY()+40, "baixo");
+                head = new Snake(fila.getHead().getX(), fila.getHead().getY()+35, "baixo");
                 fila.getHead().setImageBody();
                 fila.inserir(head);        
                 if (fila.getHead().getY() > (600 - fila.getHead().getHeight())) gameOver = true;
