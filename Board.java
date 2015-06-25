@@ -62,9 +62,10 @@ public class Board extends JPanel implements ActionListener {
            Snake aux = fila.getSnake();
            while (aux != null) {
                g2d.drawImage(aux.getImage(), aux.getX(), aux.getY(), this);               
-               aux.setHitbox(aux.getX(), aux.getY(), aux.getWidth(), aux.getHeight());
                aux = aux.getProximo();
            }
+           fila.getHead().setHitbox(fila.getHead().getX(), fila.getHead().getY(), fila.getHead().getWidth(), fila.getHead().getHeight());
+           g2d.drawRect(fila.getHead().getX(), fila.getHead().getY(), fila.getHead().getWidth(), fila.getHead().getHeight());
            g2d.drawImage(food.getImage(), food.getX(), food.getY(), this);
            colisao();
               // if (fila.getHead().getHitbox().intersects(food.getHitbox())) {

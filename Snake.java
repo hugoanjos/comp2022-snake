@@ -33,39 +33,7 @@ public class Snake extends JPanel
     }
     
     public Snake(int x, int y, String direcao) {
-        ImageIcon ii;
-        if (index == 0) {
-            ii = new ImageIcon(this.getClass().getResource(headLeft));
-            image = ii.getImage();
-        } else {
-            switch(direcao) {
-                case "cima":
-                    ii = new ImageIcon(this.getClass().getResource(headUp));
-                    image = ii.getImage();
-                    width = image.getWidth(null);
-                    height = image.getHeight(null);
-                    break;
-                case "baixo":
-                    ii = new ImageIcon(this.getClass().getResource(headDown));
-                    image = ii.getImage();
-                    width = image.getWidth(null);
-                    height = image.getHeight(null);
-                    break;
-                case "direita":
-                    ii = new ImageIcon(this.getClass().getResource(headRight));
-                    image = ii.getImage();
-                    width = image.getWidth(null);
-                    height = image.getHeight(null);                  
-                    break;
-                case "esquerda":
-                    ii = new ImageIcon(this.getClass().getResource(headLeft));
-                    image = ii.getImage();
-                    width = image.getWidth(null);
-                    height = image.getHeight(null);
-                    break;
-            }
-        }
-                    
+        setImage(direcao);                  
         
         this.x = x;
         this.y = y;
@@ -108,11 +76,34 @@ public class Snake extends JPanel
         hitbox = new Rectangle(p1, p2, largura, altura);
     }
     
-    public void setImage(){
-        ImageIcon ii = new ImageIcon(this.getClass().getResource(body));
-        image = ii.getImage();
-        width = image.getWidth(null);
-        height = image.getHeight(null);
-        setHitbox(x, y, width, height);
+    public void setImage(String direcao) {
+        ImageIcon ii;
+        switch(direcao) {
+            case "cima":
+                ii = new ImageIcon(this.getClass().getResource(headUp));
+                image = ii.getImage();
+                width = image.getWidth(null);
+                height = image.getHeight(null);
+                break;
+            case "baixo":
+                ii = new ImageIcon(this.getClass().getResource(headDown));
+                image = ii.getImage();
+                width = image.getWidth(null);
+                height = image.getHeight(null);
+                break;
+            case "direita":
+                ii = new ImageIcon(this.getClass().getResource(headRight));
+                image = ii.getImage();
+                width = image.getWidth(null);
+                height = image.getHeight(null);                  
+                break;
+            case "esquerda":
+                ii = new ImageIcon(this.getClass().getResource(headLeft));
+                image = ii.getImage();
+                width = image.getWidth(null);
+                height = image.getHeight(null);
+                break;
+        }
     }
+    
 }
