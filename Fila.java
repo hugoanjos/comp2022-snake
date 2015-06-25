@@ -8,14 +8,11 @@
 public class Fila
 {
     private Snake inicio;
+    private Snake ultimo;
+    private int max = 3;
     
     public Fila() {
         this.inicio = new Snake();
-    }
-    
-    public Snake getHead() {
-        Snake head = inicio;
-        return head;
     }
     
     public void inserir(Snake _snake) {
@@ -24,6 +21,12 @@ public class Fila
             aux = aux.getProximo();
         }
         aux.setProximo(_snake);
+        ultimo = _snake;
+    }
+    
+    public void remover() {
+        Snake aux = inicio;
+        inicio = aux.getProximo();
     }
     
     public Snake getSnake(int position) {
@@ -38,7 +41,7 @@ public class Fila
         return aux;
     }
     
-    private int getSize(){
+    public int getSize(){
         int tamanho = 1;
         Snake aux = inicio;
         if (aux == null) {
@@ -50,5 +53,21 @@ public class Fila
             }
         }
         return tamanho;
+    }
+    
+    public int getMax() {
+        return max;
+    }
+    
+    public void setMax(int max) {
+        this.max = max;
+    }
+    
+    public Snake getSnake() {
+        return inicio;
+    }
+    
+    public Snake getHead() {
+        return ultimo;
     }
 }

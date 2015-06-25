@@ -25,30 +25,23 @@ public class Snake extends JPanel
     private Image image;
     private Snake proximo;
     private int index;
-    private String direcao = "parado";
+    private String direcao;
     private Rectangle hitbox;
     
     public Snake() {
-        ImageIcon ii;
-        if (index == 0) {
-            ii = new ImageIcon(this.getClass().getResource(headLeft));
-        } else {
-            ii = new ImageIcon(this.getClass().getResource(body));
-        }
-        image = ii.getImage();
-        x = 400;
-        y = 300;
-        //width = image.getWidth(null);
-        //height = image.getHeight(null);
-        index += 1;
-    }
-
-    public int getWidth() {
-        return width;
+        this(400, 300, "esquerda");
     }
     
-    public int getHeight() {
-        return height;
+    public Snake(int x, int y, String direcao) {
+        setImage(direcao);                  
+        
+        this.x = x;
+        this.y = y;
+        index += 1;
+    }
+    
+    public Snake getProximo() {
+        return this.proximo;
     }
     
     public int getX() {
@@ -59,67 +52,66 @@ public class Snake extends JPanel
         return y;
     }
     
-    public String getDirecao() {
-        return direcao;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-    
     public Image getImage() {
         return image;
     }
-
-    public Snake getProximo() {
-        return this.proximo;
+    
+    public int getWidth() {
+        return width;
     }
     
-    public Rectangle getHitbox() {
+    public int getHeight() {
+        return height;
+    }
+    
+    public Rectangle getHitbox(){
         return hitbox;
     }
     
-    public void setX(int x) {
-        this.x += x;
-    }
-    
-    public void setY(int y) {
-        this.y += y;
-    }
-    
-    public void setProximo(Snake snake) {
-        this.proximo = snake;
-    }
-    
-    public void setDirecao(String direcao) {
-        this.direcao = direcao;
-    }
-    
-    public void setImage(String direcao) {
-        ImageIcon ii;
-        switch (direcao) {
-            case "esquerda":
-                ii = new ImageIcon(this.getClass().getResource(headLeft));
-                break;
-            case "direita":
-                ii = new ImageIcon(this.getClass().getResource(headRight));
-                break;
-            case "cima":
-                ii = new ImageIcon(this.getClass().getResource(headUp));
-                break;
-            case "baixo":
-                ii = new ImageIcon(this.getClass().getResource(headDown));
-                break;
-            default:
-                ii = new ImageIcon(this.getClass().getResource(headLeft));
-                break;   
-        }
-        image = ii.getImage();
-        width = image.getWidth(null);
-        height = image.getHeight(null);
+    public void setProximo(Snake _snake) {
+        this.proximo = _snake;
     }
     
     public void setHitbox(int p1, int p2, int largura, int altura) {
         hitbox = new Rectangle(p1, p2, largura, altura);
+    }
+    
+    public void setImage(String direcao) {
+        ImageIcon ii;
+        switch(direcao) {
+            case "cima":
+                ii = new ImageIcon(this.getClass().getResource(headUp));
+                image = ii.getImage();
+                width = image.getWidth(null);
+                height = image.getHeight(null);
+                break;
+            case "baixo":
+                ii = new ImageIcon(this.getClass().getResource(headDown));
+                image = ii.getImage();
+                width = image.getWidth(null);
+                height = image.getHeight(null);
+                break;
+            case "direita":
+                ii = new ImageIcon(this.getClass().getResource(headRight));
+                image = ii.getImage();
+                width = image.getWidth(null);
+                height = image.getHeight(null);                  
+                break;
+            case "esquerda":
+                ii = new ImageIcon(this.getClass().getResource(headLeft));
+                image = ii.getImage();
+                width = image.getWidth(null);
+                height = image.getHeight(null);
+                break;
+        }
+    }
+    
+    public void setImageBody() {
+        ImageIcon ii;
+        ii = new ImageIcon(this.getClass().getResource(body));
+        image = ii.getImage();
+        width = image.getWidth(null);
+        height = image.getHeight(null);
+        setHitbox(x, y, width, height);
     }
 }
