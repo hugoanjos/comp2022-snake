@@ -40,7 +40,7 @@ public class Board extends JPanel implements ActionListener {
         score = new Score();
         add(score);       
         
-        timer = new Timer(5, this);
+        timer = new Timer(100, this);
         timer.start();
 
         food = new Food();
@@ -61,16 +61,18 @@ public class Board extends JPanel implements ActionListener {
         if (isPlaying) {
            Snake aux = fila.getSnake();
            while (aux != null) {
-               g2d.drawImage(aux.getImage(), aux.getX(), aux.getY(), this);
+               g2d.drawImage(aux.getImage(), aux.getX(), aux.getY(), this);               
                aux.setHitbox(aux.getX(), aux.getY(), aux.getWidth(), aux.getHeight());
                aux = aux.getProximo();
            }
            g2d.drawImage(food.getImage(), food.getX(), food.getY(), this);
-           if (fila.getHead().getHitbox().intersects(food.getHitbox())) {
-               food.randomize();
-               score.addScore(10);
-               fila.setMax((fila.getMax())+1);
-           }     
+           colisao();
+              // if (fila.getHead().getHitbox().intersects(food.getHitbox())) {
+              //     food.randomize();
+               //    score.addScore(10);
+               //    fila.setMax((fila.getMax())+1);
+               //}
+           
                       
         } else {
             gameOver = true;
@@ -81,7 +83,14 @@ public class Board extends JPanel implements ActionListener {
         
     }
 
-
+    public void colisao() {
+        if (fila.getHead().getHitbox().intersects(food.getHitbox())) {
+            food.randomize();
+            score.addScore(10);
+            fila.setMax((fila.getMax())+1);
+        }
+    }
+    
     public void paintIntro(Graphics g) {
         if(isPlaying){
             isPlaying = false;
@@ -104,7 +113,7 @@ public class Board extends JPanel implements ActionListener {
         repaint();
         if(!gameOver){
             mover();
-            
+            if (fila.getSize() > fila.getMax()) fila.remover();
         } else {
             JOptionPane.showMessageDialog (null, "Game over!\n Your score was: " + score.getScore());
             System.exit(0);
@@ -112,42 +121,33 @@ public class Board extends JPanel implements ActionListener {
     }
     
     
-  //  public void colisao() {        
-  //      if (fila.getHead().getHitbox().intersects(food.getHitbox())) {
-  //          food.randomize();
-  //          score.addScore(10);
-  //      } else {
-  //          fila.remover();
-  //      }
-  //  }
-    
     public void mover() {
         switch (direcao) {
             case "esquerda":
                 head = new Snake(fila.getHead().getX()-33, fila.getHead().getY(), "esquerda");
                 fila.inserir(head);
-                if (fila.getSize() > fila.getMax()) fila.remover();
+                //fila.getHead().setHitbox(head.getX(), head.getY(), head.getWidth(), head.getHeight());                
                 if (fila.getHead().getX() < 0) gameOver = true; 
                 break;
                 
             case "direita":
                 head = new Snake(fila.getHead().getX()+33, fila.getHead().getY(), "direita");
                 fila.inserir(head);
-                if (fila.getSize() > fila.getMax()) fila.remover();
+                //fila.getHead().setHitbox(head.getX(), head.getY(), head.getWidth(), head.getHeight());
                 if (fila.getHead().getX() > (800 - fila.getHead().getWidth())) gameOver = true; 
                 break;
                 
             case "cima":
                 head = new Snake(fila.getHead().getX(), fila.getHead().getY()-33, "cima");
                 fila.inserir(head);
-                if (fila.getSize() > fila.getMax()) fila.remover();
+                //fila.getHead().setHitbox(head.getX(), head.getY(), head.getWidth(), head.getHeight());
                 if (fila.getHead().getY() < 0) gameOver = true; 
                 break;
                 
             case "baixo":
                 head = new Snake(fila.getHead().getX(), fila.getHead().getY()+33, "baixo");
                 fila.inserir(head);
-                if (fila.getSize() > fila.getMax()) fila.remover();
+                //fila.getHead().setHitbox(head.getX(), head.getY(), head.getWidth(), head.getHeight());
                 if (fila.getHead().getY() > (600 - fila.getHead().getHeight())) gameOver = true;
                 break;
         }

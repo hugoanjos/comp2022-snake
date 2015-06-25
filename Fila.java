@@ -9,7 +9,7 @@ public class Fila
 {
     private Snake inicio;
     private Snake ultimo;
-    private int max = 1;
+    private int max = 3;
     
     public Fila() {
         this.inicio = new Snake();
@@ -20,14 +20,13 @@ public class Fila
         while (aux.getProximo() != null) {
             aux = aux.getProximo();
         }
-        aux.setImage();
         aux.setProximo(_snake);
         ultimo = _snake;
     }
     
     public void remover() {
         Snake aux = inicio;
-        aux = null;
+        inicio = aux.getProximo();
     }
     
     public Snake getSnake(int position) {

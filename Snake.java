@@ -36,32 +36,40 @@ public class Snake extends JPanel
         ImageIcon ii;
         if (index == 0) {
             ii = new ImageIcon(this.getClass().getResource(headLeft));
+            image = ii.getImage();
         } else {
             switch(direcao) {
                 case "cima":
                     ii = new ImageIcon(this.getClass().getResource(headUp));
+                    image = ii.getImage();
                     width = image.getWidth(null);
                     height = image.getHeight(null);
                     break;
                 case "baixo":
                     ii = new ImageIcon(this.getClass().getResource(headDown));
+                    image = ii.getImage();
                     width = image.getWidth(null);
                     height = image.getHeight(null);
                     break;
                 case "direita":
                     ii = new ImageIcon(this.getClass().getResource(headRight));
+                    image = ii.getImage();
                     width = image.getWidth(null);
-                    height = image.getHeight(null);
+                    height = image.getHeight(null);                  
                     break;
                 case "esquerda":
                     ii = new ImageIcon(this.getClass().getResource(headLeft));
+                    image = ii.getImage();
                     width = image.getWidth(null);
                     height = image.getHeight(null);
                     break;
             }
         }
+                    
+        
         this.x = x;
         this.y = y;
+        index += 1;
     }
     
     public Snake getProximo() {
