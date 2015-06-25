@@ -106,4 +106,9 @@ public class Snake extends JPanel
         }
     }
     
+    public void setImageBody() {
+        ImageIcon ii;
+        ii = new ImageIcon(this.getClass().getResource(body));
+        image = ii.getImage();
+    }
 }
